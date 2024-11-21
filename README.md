@@ -16,9 +16,9 @@ Certifique-se que você tenha instalados:
 Para facilitar no dia do curso, baixe as imagens Docker necessárias para nossa aplicação de demonstração:
 
 ```shell
-docker pull php:8.4-cli-alpine
+docker pull php:8.3-cli-alpine
 docker pull node:23-alpine
-docker pull mariadb:11.5
+docker pull mariadb:11
 ```
 
 ## Slides
