@@ -1,0 +1,47 @@
+name: Backend - Linting, Análise Estática e Testes
+
+on:
+  push:
+    branches: [ 'main' ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-lint.yml'
+  pull_request:
+    branches: [ 'main' ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-lint.yml'
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo/backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP 8.3
+        uses: shivammathur/setup-php@e77cdb393f70751e0417891f9ae9de6a41096210
+        with:
+          php-version: '8.3'
+          extensions: 'mbstring'
+          coverage: none
+
+      - name: Install dependencies with Composer
+        uses: ramsey/composer-install@0f18aec461938c57720faaf2dba4421bf698cf42
+        with:
+          working-directory: demo/backend
+
+      - name: PHPCS
+        run: composer run phpcs
+
+      - name: PHPMD
+        run: composer run phpmd
+
+      - name: PHPStan
+        run: composer run phpstan
+
+      - name: Testes
+        run: composer test

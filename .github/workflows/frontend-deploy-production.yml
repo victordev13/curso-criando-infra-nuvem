@@ -1,0 +1,66 @@
+name: Frontend - Deploy em produção
+
+on:
+  push:
+    branches: [ 'main' ]
+    paths:
+      - 'demo/frontend/**'
+      - '.github/workflows/frontend-deploy-production.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.config.outputs.url }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: demo/frontend
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configura o acesso à conta da AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.FRONTEND_AWS_ROLE }}
+          aws-region: ${{ env.FRONTEND_AWS_REGION }}
+          aws-access-key-id: ${{ secrets.FRONTEND_AWS_ACCESS_KEY_ID }} # opcional, usado apenas em desenvolvimento
+          aws-secret-access-key: ${{ secrets.FRONTEND_AWS_SECRET_KEY }} # opcional, usado apenas em desenvolvimento
+
+      - name: Configurando Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23
+          cache: npm
+          cache-dependency-path: demo/frontend/package-lock.json
+
+      - name: Instalando dependências
+        run: npm ci
+
+      - name: Rodando testes
+        run: npm test
+
+      - name: Fazendo build da aplicação
+        run: npm run build
+
+      - name: Copiando os arquivos para o S3
+        run: aws s3 sync ./dist s3://${{ secrets.FRONTEND_AWS_S3_BUCKET_NAME }}
+
+      - name: Invalidando distribuição no CloudFront
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.FRONTEND_AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+
+      - name: Buscando URL da distribuição no CloudFront
+        id: config
+        run: |
+          url=$(aws cloudfront get-distribution-config \
+            --id ${{ secrets.FRONTEND_AWS_CLOUDFRONT_DISTRIBUTION_ID }} \
+            --query 'DistributionConfig.Aliases.Items[0]' \
+            --output text \
+            --no-cli-pager
+          )
+          echo "url=https://$url" >> $GITHUB_OUTPUT

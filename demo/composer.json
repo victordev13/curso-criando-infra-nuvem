@@ -1,0 +1,7 @@
+{
+    "require": {
+        "cycle/annotated": "^4.2",
+        "cycle/orm": "^2.9",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

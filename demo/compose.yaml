@@ -1,0 +1,39 @@
+services:
+  frontend:
+    image: node:23-alpine
+    command: sh -c 'npm install && npm run dev'
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    environment:
+      REACT_APP_API_URL: http://localhost:8000
+    ports:
+      - "5173:5173"
+
+  backend:
+    build:
+      context: ./backend
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - backendLogs:/app/logs
+    environment:
+      docker: "true"
+
+  db:
+    image: mariadb:11
+    volumes:
+      - dbVolume:/var/lib/mysql
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    environment:
+      MARIADB_DATABASE: app
+      MARIADB_ROOT_PASSWORD: root
+
+volumes:
+  backendLogs:
+    driver: local
+  dbVolume:
+    driver: local
+

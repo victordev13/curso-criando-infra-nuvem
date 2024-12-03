@@ -1,0 +1,40 @@
+name: Backend - Deploy em produção
+
+on:
+  push:
+    branches: [ 'main' ]
+    paths:
+      - 'appspec.yml'
+      - 'demo/backend/**'
+      - '.github/workflows/backend-deploy-production.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    permissions:
+      id-token: write
+    defaults:
+      run:
+        working-directory: demo/backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurando AWS
+        uses: aws-actions/configure-aws-credentials@97834a484a5ab3c40fa9e2eb40fcf8041105a573
+        with:
+          role-to-assume: ${{ secrets.BACKEND_AWS_ROLE }}
+          role-session-name: GitHub-Action-Role
+          aws-region: ${{ env.BACKEND_AWS_REGION }}
+
+      - name: Criando deployment no AWS CodeDeploy
+        run: |
+          echo "Fazendo deploy de ${{ github.sha }} para produção..."
+          aws deploy create-deployment \
+            --application-name ${{ env.BACKEND_CODEDEPLOY_APPLICATION }} \
+            --description "Commit ${{ github.sha }}" \
+            --deployment-group-name ${{ env.BACKEND_CODEDEPLOY_DEPLOYMENT_GROUP }} \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
+            --ignore-application-stop-failures
