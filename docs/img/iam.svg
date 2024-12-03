@@ -1,0 +1,218 @@
+<svg version="1.1" baseProfile="full" width="528.8" height="664.0" viewBox="0 0 528.8000030517578 664" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+	<desc >#spacing: 60
+	#arrowSize: 0.7
+	#stroke: #777
+	#font: Fira Sans
+
+	[&lt;actor&gt; Usuário]
+	[Grupo de Usuários]
+	[Role]
+	[Políticas]
+	[&lt;abstract&gt; Statements]
+	[&lt;abstract&gt; Permissões]
+	[&lt;abstract&gt; Identity Provider]
+	[&lt;actor&gt; Usuário Federado]
+	[&lt;instance&gt; Recursos]
+
+	[Grupo de Usuários]&lt;-[Usuário]
+	[Identity Provider]-&gt;[Usuário Federado]
+
+	[Usuário]-&gt;[Role]
+	[Grupo de Usuários]-&gt; Assumir [Role]
+	[Usuário Federado]-&gt; [Role]
+
+	[Usuário]+-&gt; Possuem [Políticas]
+	[Grupo de Usuários]+-&gt;[Políticas]
+	[Role]+-&gt;[Políticas]
+
+	[Políticas]+- Compostas de [Statements]
+	[Statements]+- Concedem [Permissões]
+	[Permissões]--&gt;[Recursos]
+	</desc>
+	<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Fira Sans" font-weight="bold" font-style="normal">
+		<g font-family="Fira Sans" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#777">
+			<g stroke="transparent" fill="transparent">
+				<rect x="0.0" y="0.0" height="664.0" width="528.8" stroke="none"></rect>
+			</g>
+			<g transform="translate(23.800003051757812, 8)" fill="#777">
+				<g transform="translate(20, 20)" fill="#777" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal">
+					<g class="fragment" data-fragment-index="6">
+						<text x="0" y="30.0" stroke="none">Pode</text>
+						<text x="0" y="45.0" stroke="none">pertencer</text>
+						<g stroke-dasharray="6 6">
+							<path d="M92.3 35.0 L36 62 L36 92 L36.0 92.0 " fill="none"/>
+						</g>
+						<path d="M88.4 43.1 L92.3 35.0 L83.6 33.0 L98.6 32.0 Z"/>
+					</g>
+					<g class="fragment" data-fragment-index="11">
+						<text x="392.5" y="52.0" stroke="none">Provê</text>
+						<path d="M384.5 32.0 L384.5 62 L384.5 85 L384.5 85.0 " fill="none"/>
+						<path d="M378.9 78.0 L384.5 85.0 L390.1 78.0 L384.5 92.0 Z"/>
+					</g>
+					<g class="fragment" data-fragment-index="8">
+						<path d="M72.0 133.4 L192 178 L214.81920264513985 202.84457566098064 L214.8 202.8 " fill="none"/>
+						<path d="M206.0 201.5 L214.8 202.8 L214.2 193.9 L219.6 208.0 Z"/>
+					</g>
+					<text x="210.4" y="180.0" stroke="none" class="fragment fade-in-then-out" data-fragment-index="8">Assumir</text>
+					<text x="260.4" y="180.0" stroke="none" class="fragment" data-fragment-index="9">Assumir</text>
+					<g class="fragment" data-fragment-index="9">
+						<path d="M173.7 32.0 L252 62 L252 120 L252 120 L252 178 L252 178 L242.9439002461149 201.46932893964583 L242.9 201.5 " fill="none"/>
+						<path d="M240.2 192.9 L242.9 201.5 L250.7 197.0 L240.4 208.0 Z"/>
+					</g>
+					<g class="fragment" data-fragment-index="13">
+						<path d="M384.5 148.0 L384.5 178 L265.44333606956945 214.44996033810187 L265.4 214.4 " fill="none"/>
+						<path d="M270.5 207.0 L265.4 214.4 L273.8 217.8 L258.8 216.5 Z"/>
+					</g>
+					<g class="fragment" data-fragment-index="2">
+						<text x="65.8" y="272.0" stroke="none">Possui</text>
+						<path d="M36.0 167.6 L36 178 L36 224 L36 224 L36 270 L36 270 L69.26637644011689 295.7185431301744 L69.3 295.7 " fill="none"/>
+						<path d="M60.3 295.9 L69.3 295.7 L67.2 287.0 L74.8 300.0 Z"/>
+						<g fill="#777">
+							<path d="M41.6 157.8 L36.0 167.6 L30.4 157.8 L36.0 148.0 Z"/>
+						</g>
+					</g>
+					<g class="fragment" data-fragment-index="7">
+						<path d="M132.0 51.6 L132 62 L132 120 L132 120 L132 178 L132 178 L132 224 L132 224 L132 270 L132 270 L112.54667670677983 294.516517027072 L112.5 294.5 " fill="none"/>
+						<path d="M112.5 285.6 L112.5 294.5 L121.3 292.5 L108.2 300.0 Z"/>
+						<g fill="#777">
+							<path d="M137.6 41.8 L132.0 51.6 L126.4 41.8 L132.0 32.0 Z"/>
+						</g>
+					</g>
+					<g class="fragment" data-fragment-index="8">
+						<path d="M234.3 259.6 L234.25 270 L141.64436589456614 300.70168770342315 L141.6 300.7 " fill="none"/>
+						<path d="M146.5 293.2 L141.6 300.7 L150.1 303.8 L135.0 302.9 Z"/>
+						<g fill="#777">
+							<path d="M239.8 249.8 L234.3 259.6 L228.7 249.8 L234.3 240.0 Z"/>
+						</g>
+					</g>
+					<g class="fragment" data-fragment-index="3">
+						<text x="-15.8" y="384.0" stroke="none">Compostas de</text>
+						<path d="M95.5 351.6 L95.5 362 L95.5 392 L95.5 392.0 " fill="none"/>
+						<g fill="#777">
+							<path d="M101.1 341.8 L95.5 351.6 L89.9 341.8 L95.5 332.0 Z"/>
+						</g>
+					</g>
+					<g class="fragment" data-fragment-index="4">
+						<text x="11.6" y="476.0" stroke="none">Concedem</text>
+						<path d="M95.5 443.6 L95.5 454 L95.5 484 L95.5 484.0 " fill="none"/>
+						<g fill="#777">
+							<path d="M101.1 433.8 L95.5 443.6 L89.9 433.8 L95.5 424.0 Z"/>
+						</g>
+					</g>
+					<g class="fragment" data-fragment-index="4">
+						<g stroke-dasharray="6 6">
+							<path d="M146.0 499.0 L186 499 L189 499 L189.0 499.0 " fill="none"/>
+						</g>
+						<path d="M187.0 504.6 L194.0 499.0 L187.0 493.4 L201.0 499.0 Z"/>
+					</g>
+					<g data-name="Usuário" class="fragment" data-fragment-index="1">
+						<g fill="#eee8d5" stroke="#777" data-name="Usuário">
+							<circle r="4.0" cx="36.0" cy="104.0" data-name="Usuário"></circle>
+							<path d="M36.0 108.0 L36.0 116.0" fill="none" data-name="Usuário"/>
+							<path d="M32.0 112.0 L40.0 112.0" fill="none" data-name="Usuário"/>
+							<path d="M32.0 120.0 L36.0 116.0 L40.0 120.0" fill="none" data-name="Usuário"/>
+						</g>
+						<g transform="translate(0, 116)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="Usuário">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" data-name="Usuário">
+								<text x="28.0" y="14.1" stroke="none" text-anchor="middle" data-name="Usuário">Usuário</text>
+
+							</g>
+						</g>
+					</g>
+					<g data-name="Grupo de Usuários" class="fragment" data-fragment-index="6">
+						<g fill="#eee8d5" stroke="#777" data-name="Grupo de Usuários">
+							<rect x="56.5" y="0.0" height="32.0" width="151.0" data-name="Grupo de Usuários"></rect>
+						</g>
+						<g transform="translate(56.5, 0)" font-family="Fira Sans" font-size="12pt" font-weight="bold" font-style="normal" data-name="Grupo de Usuários">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" data-name="Grupo de Usuários">
+								<text x="67.5" y="14.1" stroke="none" text-anchor="middle" data-name="Grupo de Usuários">Grupo de Usuários</text>
+
+							</g>
+						</g>
+					</g>
+					<g data-name="Role" class="fragment" data-fragment-index="8">
+						<g fill="#eee8d5" stroke="#777" data-name="Role">
+							<rect x="209.8" y="208.0" height="32.0" width="49.0" data-name="Role"></rect>
+						</g>
+						<g transform="translate(209.75, 208)" font-family="Fira Sans" font-size="12pt" font-weight="bold" font-style="normal" data-name="Role">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" data-name="Role">
+								<text x="16.5" y="14.1" stroke="none" text-anchor="middle" data-name="Role">Role</text>
+
+							</g>
+						</g>
+					</g>
+					<g data-name="Políticas" class="fragment" data-fragment-index="2">
+						<g fill="#eee8d5" stroke="#777" data-name="Políticas">
+							<rect x="56.0" y="300.0" height="32.0" width="79.0" data-name="Políticas"></rect>
+						</g>
+						<g transform="translate(56, 300)" font-family="Fira Sans" font-size="12pt" font-weight="bold" font-style="normal" data-name="Políticas">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" data-name="Políticas">
+								<text x="31.5" y="14.1" stroke="none" text-anchor="middle" data-name="Políticas">Políticas</text>
+
+							</g>
+						</g>
+					</g>
+					<g data-name="Statements" class="fragment" data-fragment-index="3">
+						<g fill="#eee8d5" stroke="#777" data-name="Statements">
+							<rect x="45.5" y="392.0" height="32.0" width="100.0" data-name="Statements"></rect>
+						</g>
+						<g transform="translate(45.5, 392)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="italic" data-name="Statements">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" data-name="Statements">
+								<text x="42.0" y="14.1" stroke="none" text-anchor="middle" data-name="Statements">Statements</text>
+
+							</g>
+						</g>
+					</g>
+					<g data-name="Permissões" class="fragment" data-fragment-index="4">
+						<g fill="#eee8d5" stroke="#777" data-name="Permissões">
+							<rect x="49.5" y="484.0" height="32.0" width="92.0" data-name="Permissões"></rect>
+						</g>
+						<g transform="translate(49.5, 484)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="italic" data-name="Permissões">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" data-name="Permissões">
+								<text x="38.0" y="14.1" stroke="none" text-anchor="middle" data-name="Permissões">Permissões</text>
+
+							</g>
+						</g>
+					</g>
+					<g data-name="Identity Provider" class="fragment" data-fragment-index="10">
+						<g fill="#eee8d5" stroke="#777" data-name="Identity Provider">
+							<rect x="314.5" y="0.0" height="32.0" width="140.0" data-name="Identity Provider"></rect>
+						</g>
+						<g transform="translate(314.5, 0)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="italic" data-name="Identity Provider">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" data-name="Identity Provider">
+								<text x="62.0" y="14.1" stroke="none" text-anchor="middle" data-name="Identity Provider">Identity Provider</text>
+
+							</g>
+						</g>
+					</g>
+					<g data-name="Usuário Federado" class="fragment" data-fragment-index="12">
+						<g fill="#eee8d5" stroke="#777" data-name="Usuário Federado">
+							<circle r="4.0" cx="384.5" cy="104.0" data-name="Usuário Federado"></circle>
+							<path d="M384.5 108.0 L384.5 116.0" fill="none" data-name="Usuário Federado"/>
+							<path d="M380.5 112.0 L388.5 112.0" fill="none" data-name="Usuário Federado"/>
+							<path d="M380.5 120.0 L384.5 116.0 L388.5 120.0" fill="none" data-name="Usuário Federado"/>
+						</g>
+						<g transform="translate(312, 116)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="Usuário Federado">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" data-name="Usuário Federado">
+								<text x="64.5" y="14.1" stroke="none" text-anchor="middle" data-name="Usuário Federado">Usuário Federado</text>
+
+							</g>
+						</g>
+					</g>
+					<g data-name="Recursos" class="fragment" data-fragment-index="4">
+						<g fill="#eee8d5" stroke="#777" data-name="Recursos">
+							<rect x="204.5" y="484.0" height="32.0" width="82.0" data-name="Recursos"></rect>
+						</g>
+						<g transform="translate(204.5, 484)" font-family="Fira Sans" font-size="12pt" font-weight="normal" font-style="normal" data-name="Recursos">
+							<g transform="translate(8, 8)" fill="#777" text-align="center" stroke-width="3.0" data-name="Recursos">
+								<text x="33.0" y="14.1" stroke="none" text-anchor="middle" data-name="Recursos">Recursos</text>
+								<path d="M0.3 16.6 L65.7 16.6" fill="none" data-name="Recursos"/>
+
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

@@ -23,8 +23,14 @@ docker pull mariadb:11
 
 ## Slides
 
-Serão disponibilizados no dia do curso. 
+Clone este repositório com a _flag_ `--recursive`:
+
+```shell
+git clone --recursive git@github.com:vcampitelli/curso-criando-infra-nuvem.git
+```
+
+Acesse o arquivo [`docs/index.html`](./docs/index.html) em seu navegador.
 
 ## Código da demonstração
 
-Serão disponibilizados no dia do curso. 
+Estão na pasta [`demo`](./demo).

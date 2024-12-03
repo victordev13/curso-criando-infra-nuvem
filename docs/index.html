@@ -1,0 +1,1752 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="author" content="Vinícius Campitelli, eu@viniciuscampitelli.com">
+
+        <title>Criando uma Infraestrutura na Nuvem | Vinícius Campitelli</title>
+
+        <link rel="stylesheet" href="reveal.js/dist/reset.css">
+        <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+        <link rel="stylesheet" href="reveal.js/dist/theme/black.css">
+
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/framer.min.css"
+              integrity="sha512-tegeSiwBwq2gYD87Cycxj1Q5PX/y2owrYz1b0QmyEBldD9+mH+CxQK0/3FgRY37inbVLVNaARzMbLD/sl5YtCA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono&display=swap">
+
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section id="first-slide"> <!-- Capa -->
+                    <h1 class="title">Criando uma<br>Infraestrutura<br>na Nuvem</h1>
+                    <h2>Vinícius Campitelli</h2>
+                </section> <!-- Capa -->
+
+                <section> <!-- Sobre -->
+                    <section data-auto-animate>
+                        <h1>Sobre</h1>
+                    </section>
+                    <section data-auto-animate>
+                        <h1>Sobre</h1>
+                        <h2>Sobre mim</h2>
+                        <div id="about-me">
+                            <div class="text-center">
+                                <figure id="profile-pic">
+                                    <img src="img/profile.jpg" alt="Vinícius Campitelli">
+                                    <figcaption id="about-me-name">Vinícius<br>Campitelli</figcaption>
+                                </figure>
+                            </div>
+                            <ul>
+                                <li>
+                                    Bacharel em Ciência da Computação pela UFSCar
+                                </li>
+                                <li>Desenvolvedor há mais de 15 anos</li>
+                                <li>
+                                    Membro do <a href="https://phpsp.org.br" target="_blank" rel="noopener">PHPSP</a>
+                                </li>
+                                <li>Entusiasta em cibersegurança</li>
+                                <li>Consultor de TI e instrutor de treinamentos</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="about-me-links">
+                                <div>
+                                    <svg role="img" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.3222 10.383C15.3796 10.9457 15.4125 11.4903 15.4125 12C15.4125 12.9541 15.2972 14.0315 15.1208 15.1208C14.0315 15.2972 12.9541 15.4125 12 15.4125C11.0502 15.4125 9.97313 15.2975 8.87911 15.1205C8.70281 14.0312 8.5875 12.954 8.5875 12C8.5875 11.4905 8.62039 10.9458 8.67789 10.383C9.82608 10.5668 10.9715 10.6875 12 10.6875C13.0286 10.6875 14.174 10.5668 15.3222 10.383Z"
+                                              class="fill"/>
+                                        <path d="M16.8752 10.0994C16.9462 10.7579 16.9875 11.399 16.9875 12C16.9875 12.8769 16.8997 13.8389 16.7599 14.8153C18.7425 14.4016 20.575 13.8731 21.5567 13.5722C21.8739 13.475 21.9986 13.4363 22.1658 13.3694C22.2494 13.336 22.326 13.302 22.4259 13.2543C22.4748 12.843 22.5 12.4244 22.5 12C22.5 10.878 22.324 9.79714 21.9982 8.78346L21.9133 8.81017C20.8868 9.12245 18.9652 9.6745 16.8752 10.0994Z"
+                                              class="fill"/>
+                                        <path d="M21.4017 7.31948C20.3698 7.63221 18.579 8.14039 16.6599 8.53603C16.2178 5.84926 15.443 3.16951 15.0702 1.95598C17.8422 2.80227 20.1273 4.76467 21.4017 7.31948Z"
+                                              class="fill"/>
+                                        <path d="M15.1117 8.82229C14.0253 8.99781 12.9513 9.1125 12 9.1125C11.0487 9.1125 9.97477 8.99781 8.88843 8.8223C9.30471 6.28005 10.0478 3.68306 10.4278 2.44333C10.525 2.12606 10.5637 2.00144 10.6306 1.83418C10.664 1.75062 10.698 1.67398 10.7457 1.57414C11.157 1.52518 11.5756 1.5 12 1.5C12.4434 1.5 12.8803 1.52748 13.3093 1.58083C13.3184 1.61564 13.3268 1.64679 13.3351 1.67626C13.3597 1.76333 13.3982 1.8857 13.4628 2.09104L13.4696 2.11261C13.7935 3.14223 14.6519 6.01401 15.1117 8.82229Z"
+                                              class="fill"/>
+                                        <path d="M7.34004 8.536C7.7801 5.86107 8.54986 3.19576 8.92192 1.98181L8.92983 1.95597C6.15777 2.80225 3.8727 4.76465 2.59835 7.31946C3.63018 7.63219 5.42095 8.14036 7.34004 8.536Z"
+                                              class="fill"/>
+                                        <path d="M2.00184 8.78345C1.67598 9.79714 1.5 10.878 1.5 12C1.5 12.4389 1.52693 12.8715 1.57923 13.2963L1.74471 13.3515L1.74603 13.3519L1.74765 13.3525L1.74879 13.3528C1.80205 13.3705 3.36305 13.886 5.41878 14.3975C5.99886 14.5418 6.61307 14.6844 7.24006 14.8151C7.10025 13.8388 7.0125 12.8769 7.0125 12C7.0125 11.3988 7.05374 10.7577 7.12472 10.0994C5.03428 9.67436 3.11218 9.12212 2.08597 8.80989L2.07883 8.80771L2.00184 8.78345Z"
+                                              class="fill"/>
+                                        <path d="M12 16.9875C12.8769 16.9875 13.8389 16.8997 14.8153 16.7599C14.4016 18.7425 13.8731 20.575 13.5722 21.5566C13.475 21.8739 13.4363 21.9985 13.3694 22.1658C13.336 22.2494 13.302 22.326 13.2543 22.4259C12.843 22.4748 12.4244 22.5 12 22.5C11.5756 22.5 11.157 22.4748 10.7457 22.4259C10.698 22.326 10.664 22.2494 10.6306 22.1658C10.5637 21.9986 10.525 21.8739 10.4278 21.5567C10.1269 20.5751 9.59846 18.7427 9.18478 16.7603C10.1579 16.8996 11.1201 16.9875 12 16.9875Z"
+                                              class="fill"/>
+                                        <path d="M5.0385 15.9259C3.73853 15.6024 2.63135 15.2775 1.95597 15.0702C2.97258 18.4002 5.59982 21.0274 8.92983 22.044L8.92192 22.0182C8.59705 20.9582 7.96897 18.7917 7.52191 16.4784C6.6525 16.3103 5.80722 16.1171 5.0385 15.9259Z"
+                                              class="fill"/>
+                                        <path d="M22.0182 15.0781C20.9582 15.403 18.7915 16.0311 16.4781 16.4781C16.0311 18.7915 15.403 20.9581 15.0781 22.0182L15.0702 22.044C18.4002 21.0274 21.0274 18.4002 22.044 15.0702L22.0182 15.0781Z"
+                                              class="fill"/>
+                                        <path d="M1.6103 13.323C1.64665 13.3277 1.67628 13.3327 1.68611 13.3349C1.69472 13.337 1.70821 13.3406 1.7131 13.3419L1.72391 13.345L1.72973 13.3468L1.73585 13.3487L1.74098 13.3503C1.7381 13.3494 1.67976 13.3348 1.6103 13.323Z"
+                                              class="fill"/>
+                                    </svg>
+                                    <div>
+                                        <p>Site</p>
+                                        <a href="https://viniciuscampitelli.com" target="_blank" rel="noopener">
+                                            viniciuscampitelli.com
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <svg role="img" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                                              class="fill"></path>
+                                    </svg>
+                                    <div>
+                                        <p>GitHub</p>
+                                        <a href="https://github.com/vcampitelli" target="_blank" rel="noopener">
+                                            vcampitelli
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <svg role="img" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                                              class="fill"/>
+                                        <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                                              class="fill"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                                              class="fill"/>
+                                    </svg>
+                                    <div>
+                                        <p>Instagram</p>
+                                        <a href="https://instagram.com/vcampitelli" target="_blank" rel="noopener">
+                                            vcampitelli
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <svg role="img" width="64px" height="64px" viewBox="0 0 448 448" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M64 0C28.7 0 0 28.7 0 64V384C0 419.3 28.7 448 64 448H384C419.3 448 448 419.3 448 384V64C448 28.7 419.3 0 384 0H64ZM294.2 212.3C313.7 221.6 327.9 235.8 335.4 253.2C345.8 277.5 346.8 317.1 315.2 348.6C291 372.7 261.7 383.6 220.1 383.9H219.9C173.1 383.6 137.1 367.8 113 337.1C91.5 309.8 80.4 271.7 80 224V223.8C80.4 176.1 91.5 138.1 113 110.7C137.2 80 173.2 64.2 219.9 63.9H220.1C267 64.2 303.4 79.9 328.3 110.5C340.6 125.6 349.6 143.8 355.3 164.9L328.4 172.1C323.7 154.9 316.5 140.2 307 128.5C287.6 104.6 258.3 92.4 220 92.1C182 92.4 153.2 104.6 134.5 128.3C117 150.6 107.9 182.7 107.6 223.8C107.9 264.9 117 297.1 134.5 319.3C153.2 343.1 181.9 355.3 220 355.5C254.3 355.2 276.9 347.1 295.8 328.2C317.3 306.7 316.9 280.3 310 264.2C306 254.8 298.6 246.9 288.7 240.9C286.3 258.9 280.8 273.1 272.2 284.1C260.8 298.6 244.5 306.5 223.8 307.6C208.1 308.5 193 304.7 181.2 296.9C167.3 287.7 159.2 273.7 158.3 257.4C156.6 225.2 182.1 202.1 221.8 199.8C235.9 199 249.1 199.6 261.3 201.7C259.7 191.8 256.4 184 251.5 178.3C244.8 170.5 234.4 166.5 220.7 166.4H220.3C209.3 166.4 194.3 169.5 184.7 184L161.7 168.2C174.5 148.8 195.3 138.1 220.2 138.1H220.8C262.6 138.4 287.4 164.4 289.9 209.9C291.3 210.5 292.7 211.1 294.1 211.8L294.2 212.3ZM222.4 279.8C239.4 278.9 258.8 272.2 262.1 231C253.3 229.1 243.5 228.1 233.1 228.1C229.9 228.1 226.7 228.2 223.5 228.4C194.9 230 185.4 243.9 186.1 256.3C187 273 205.1 280.8 222.5 279.9L222.4 279.8Z"
+                                              class="fill"/>
+                                    </svg>
+                                    <div>
+                                        <p>Threads</p>
+                                        <a href="https://www.threads.net/@vcampitelli" target="_blank" rel="noopener">
+                                            vcampitelli
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"
+                                              class="fill"></path>
+                                    </svg>
+                                    <div>
+                                        <p><span class="text-muted">X</span> Twitter</p>
+                                        <a href="https://twitter.com/vcampitelli" target="_blank" rel="noopener">
+                                            vcampitelli
+                                        </a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <svg role="img" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
+                                        <g fill="none" fill-rule="evenodd">
+                                            <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z"
+                                                  class="fill"/>
+                                            <path d="M62,62 L51.315625,62 L51.315625,43.8021149 C51.315625,38.8127542 49.4197917,36.0245323 45.4707031,36.0245323 C41.1746094,36.0245323 38.9300781,38.9261103 38.9300781,43.8021149 L38.9300781,62 L28.6333333,62 L28.6333333,27.3333333 L38.9300781,27.3333333 L38.9300781,32.0029283 C38.9300781,32.0029283 42.0260417,26.2742151 49.3825521,26.2742151 C56.7356771,26.2742151 62,30.7644705 62,40.051212 L62,62 Z M16.349349,22.7940133 C12.8420573,22.7940133 10,19.9296567 10,16.3970067 C10,12.8643566 12.8420573,10 16.349349,10 C19.8566406,10 22.6970052,12.8643566 22.6970052,16.3970067 C22.6970052,19.9296567 19.8566406,22.7940133 16.349349,22.7940133 Z M11.0325521,62 L21.769401,62 L21.769401,27.3333333 L11.0325521,27.3333333 L11.0325521,62 Z"
+                                                  class="fill-bg"/>
+                                        </g>
+                                    </svg>
+                                    <div>
+                                        <p>LinkedIn</p>
+                                        <a href="https://linkedin.com/in/viniciuscampitelli" target="_blank"
+                                           rel="noopener">
+                                            Vinícius Campitelli
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h1>Sobre</h1>
+                        <h2>Acompanhamento</h2>
+                        <ul>
+                            <li>
+                                Clone este repositório
+                                <pre><code class="shell" data-trim>
+                                    $ git clone --recursive git@github.com:vcampitelli/curso-criando-infra-nuvem.git
+                                </code></pre>
+                            </li>
+                            <li>
+                                Acesse os slides através do arquivo <code>docs/index.html</code> em seu navegador
+                            </li>
+                            <li>
+                                Certifique-se que você tenha o
+                                <a href="https://docs.docker.com/get-docker" target="_blank" rel="noopener">
+                                    Docker
+                                </a>
+                                e o
+                                <a href="https://docs.docker.com/compose" target="_blank" rel="noopener">
+                                    Docker Compose
+                                </a>
+                                instalados
+                            </li>
+                            <li>
+                                Inicialize os <em>containers</em> da aplicação
+                                <pre><code class="shell" data-trim>
+                                    $ cd demo
+                                    $ docker compose up -d
+                                </code></pre>
+                            </li>
+                            <li>
+                                Acesse <a href="http://localhost:5173" target="_blank" rel="noopener">localhost:5173</a>
+                                em seu navegador
+                            </li>
+                        </ul>
+                    </section>
+                </section> <!-- Sobre -->
+
+                <section> <!-- Computação em Nuvem -->
+                    <section>
+                        <h1>Computação em Nuvem</h1>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Computação em Nuvem</h1>
+                        <h2>História</h2>
+
+                        <ul class="timeline">
+                            <li class="fragment fade-up">
+                                <p>Década de 60</p>
+                                <p>
+                                    Contexto: os computadores <em>("mainframes")</em> são utilizados apenas por
+                                    empresas, universidades ou governos, pois são extremamente grandes e caros
+                            </li>
+                            <li class="fragment fade-up">
+                                <p>1961</p>
+                                <p>
+                                    John McCarthy, criador da linguagem LISP e pioneiro em Inteligência Artificial,
+                                    propõe o conceito de <a
+                                        href="https://en.wikipedia.org/wiki/Utility_computing" target="_blank"
+                                        rel="noopener">computação utilitária</a>, em que empresas alugariam tempo de
+                                    uso de seus computadores
+                                </p>
+                            </li>
+                            <li class="fragment fade-up">
+                                <p>1997</p>
+                                <p>
+                                    Ramnath Chellappa, professor em uma Universidade de Atlanta, usa o termo
+                                    <em>"cloud computing"</em>
+                                    <a href="https://www.bcs.org/articles-opinion-and-research/history-of-the-cloud/"
+                                       target="_blank" rel="noopener">em um seminário</a> para explicar um <q>paradigma
+                                    onde os limites computacionais seriam determinados por questões econômicas e não
+                                    somente por restrições técnicas</q>
+                                </p>
+                            </li>
+                            <li class="fragment fade-up">
+                                <p>Julho de 2002</p>
+                                <p>
+                                    A Amazon <a href="https://press.aboutamazon.com/news-releases/news-release-details/amazoncom-launches-web-services"
+                                                target="_blank" rel="noopener" class="smaller">lança uma plataforma</a>
+                                    para auxiliar terceiros no desenvolvimento de suas aplicações (principalmente lojas
+                                    virtuais), diminuindo o tempo gasto para preparem a infraestrutura, chamada
+                                    <b>Amazon Web Services</b>
+                                </p>
+                            </li>
+                        </ul>
+                    </section>
+                    <section> <!-- Conceito NIST -->
+                        <h1 class="subtitle">Computação em Nuvem</h1>
+                        <h2>Conceito segundo o NIST</h2>
+
+                        <blockquote>
+                            ... é um modelo para possibilitar acesso ubíquo, conveniente e sob demanda via rede a um
+                            conjunto de recursos computacionais configuráveis (como servidores, aplicações e
+                            armazenamento) que podem ser rapidamente provisionados e disponibilizados com o mínimo
+                            de esforço de gerenciamento ou interação com o provedor
+                        </blockquote>
+                        <a href="https://csrc.nist.gov/publications/detail/sp/800-145/final" target="_blank"
+                           rel="noopener" class="reference mb-2">
+                            Proposta SP 800-145
+                        </a>
+
+                        <p class="fs-smaller">
+                            <em>NIST é o Instituto Nacional de Padrões e Tecnologia dos Estados Unidos</em>
+                        </p>
+                    </section> <!-- Conceito NIST -->
+                    <section> <!-- Conceito NIST -->
+                        <h1 class="subtitle">Computação em Nuvem</h1>
+                        <h2>Conceito segundo o NIST</h2>
+
+                        <div class="fragment mb-1" data-fragment-index="0">
+                            <p class="fw-bold mb-0"><em>Self-service</em> sob demanda</p>
+                            <p class="fs-small mt-0">
+                                Cliente deve provisionar serviços unilateralmente sem interação humana com o provedor
+                            </p>
+                        </div>
+                        <div class="fragment mb-1" data-fragment-index="1">
+                            <p class="fw-bold mb-0">Acesso generalizado à rede</p>
+                            <p class="small mt-0">
+                                Serviços devem ser disponibilizados e acessados via mecanismos padrões de rede
+                            </p>
+                        </div>
+                        <div class="fragment mb-1" data-fragment-index="2">
+                            <p class="fw-bold mb-0">Agrupamento de recursos</p>
+                            <p class="fs-small mt-0">
+                                Devem servir múltiplos clientes, sendo atribuídos e reatribuídos de forma dinâmica
+                            </p>
+                        </div>
+                        <div class="fragment mb-1" data-fragment-index="3">
+                            <p class="fw-bold mb-0">Elasticidade rápida</p>
+                            <p class="fs-small mt-0">
+                                Recursos devem ser escaláveis para suportar a demanda
+                            </p>
+                        </div>
+                        <div class="fragment mb-1" data-fragment-index="4">
+                            <p class="fw-bold mb-0">Serviço mensurável</p>
+                            <p class="fs-small mt-0">
+                                Deve ser possível medir e monitorar o uso de cada serviço
+                            </p>
+                        </div>
+
+                        <a href="https://csrc.nist.gov/publications/detail/sp/800-145/final" target="_blank"
+                           rel="noopener" class="reference">
+                            Proposta SP 800-145
+                        </a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Computação em Nuvem</h1>
+                        <h2>Conceito</h2>
+                        <p class="fragment">
+                            Disponibilização de recursos computacionais <em>(como servidores ou armazenamento)</em> via
+                            Internet que permite alta escalabilidade e provisionamento dinâmico de recursos
+                            <span class="fragment">
+                                com modelo de pagamento <em>pay-as-you-go</em>, onde o cliente só é cobrado pelo que foi
+                                exatamente utilizado <em>(como tempo de processamento, espaço armazenado ou banda
+                                trafegada)</em>
+                            </span>
+                        </p>
+                    </section>
+                    <section> <!-- Vantagens e desvantagens -->
+                        <h1 class="subtitle">Computação em Nuvem</h1>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <h2 class="mb-1">Vantagens</h2>
+                                <ul>
+                                    <li class="fragment" data-fragment-index="1">Permite ao cliente focar no problema
+                                    </li>
+                                    <li class="fragment" data-fragment-index="2">Velocidade de implementação</li>
+                                    <li class="fragment" data-fragment-index="3">Elasticidade de recursos</li>
+                                    <li class="fragment" data-fragment-index="4">Processamento distribuído</li>
+                                    <li class="fragment" data-fragment-index="5">
+                                        Economia de custos <em class="fragment" data-fragment-index="6">(de modo
+                                        geral)</em>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h2 class="mb-1">Desvantagens</h2>
+                                <ul>
+                                    <li class="fragment" data-fragment-index="8">Maior complexidade de início</li>
+                                    <li class="fragment" data-fragment-index="9"><em>Vendor lock-in</em></li>
+                                    <li class="fragment" data-fragment-index="10">
+                                        Ameaças de segurança <em class="fragment" data-fragment-index="11">(se não bem
+                                        configurada)</em>
+                                    </li>
+                                    <li class="fragment" data-fragment-index="12">
+                                        Gastos imprevisíveis <em class="fragment" data-fragment-index="13">(se não bem
+                                        configurados)</em>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section> <!-- Vantagens e desvantagens -->
+                    <section> <!-- Principais provedores -->
+                        <h1 class="subtitle">Cloud Computing</h1>
+                        <h2>Principais provedores</h2>
+                        <div class="d-flex cols-3 my-4">
+                            <div class="text-center">
+                                <a href="https://aws.amazon.com/pt/" target="_blank" rel="noopener">
+                                    <img src="img/aws.svg" alt="Amazon Web Services" style="height: 100px"><br>
+                                    Amazon Web Services
+                                </a>
+                            </div>
+                            <div class="text-center">
+                                <a href="https://cloud.google.com/?hl=pt-br" target="_blank" rel="noopener">
+                                    <img src="img/gcp.svg" alt="Google Cloud Engine" style="height: 100px"><br>
+                                    Google Cloud Engine
+                                </a>
+                            </div>
+                            <div class="text-center">
+                                <a href="https://azure.microsoft.com/pt-br/" target="_blank" rel="noopener">
+                                    <img src="img/azure.svg" alt="Microsoft Azure" style="height: 100px"><br>
+                                    Microsoft Azure
+                                </a>
+                            </div>
+                        </div>
+                        <div class="alert mt-2">
+                            💡️ Veja mais provedores no artigo do Gartner
+                            <a href="https://www.gartner.com/technology/media-products/reprints/amazon/1-2FTPMD93-PTB.html"
+                               target="_blank" rel="noopener">
+                                "Quadrante Mágico para infraestrutura em nuvem e serviços de plataforma"
+                            </a>
+                        </div>
+                    </section> <!-- Principais provedores -->
+
+                    <section data-auto-animate data-auto-animate-restart> <!-- Principais modelos -->
+                        <h1 class="subtitle">Computação em Nuvem</h1>
+                        <h2>Principais modelos</h2>
+
+                        <p class="mb-0">
+                            <span class="fragment fw-bold" data-fragment-index="0">IaaS</span>
+                            <span class="fragment" data-fragment-index="3">
+                                &#x2192; <em>Infrastructure as a Service</em>
+                            </span>
+                        </p>
+                        <p class="fragment mb-0 fs-small" data-fragment-index="6">
+                            Disponibilização de um servidor e seus recursos de <em>hardware</em> para que o cliente
+                            possa utilizar a infraestrutura da maneira que desejar
+                        </p>
+                        <p class="fragment mb-0 mt-1 text-muted fs-smaller" data-fragment-index="6">
+                            Exemplos: AWS EC2, Azure VM, Google Compute Engine, Digital Ocean
+                        </p>
+
+                        <p class="mb-0 mt-2">
+                            <span class="fragment fw-bold" data-fragment-index="1">PaaS</span>
+                            <span class="fragment" data-fragment-index="4">
+                                &#x2192; <em>Platform as a Service</em>
+                            </span>
+                        </p>
+                        <p class="fragment mb-0 fs-small" data-fragment-index="7">
+                            O provedor cuida do servidor, do Sistema Operacional e das ferramentas necessárias para
+                            que o cliente possa executar sua aplicação
+                        </p>
+                        <p class="fragment mb-0 mt-1 text-muted fs-smaller" data-fragment-index="7">
+                            Exemplos: AWS Beanstalk, Google App Engine, Heroku, Netlify
+                        </p>
+
+                        <p class="mb-0 mt-2">
+                            <span class="fragment fw-bold" data-fragment-index="2">SaaS</span>
+                            <span class="fragment" data-fragment-index="5">
+                                &#x2192; <em>Software as a Service</em>
+                            </span>
+                        </p>
+                        <p class="fragment mb-0 fs-small" data-fragment-index="8">
+                            Sistemas em que o usuário utiliza o <em>software</em> pela Internet, sem precisar baixá-lo e
+                            instalá-lo em seu computador ou rede
+                        </p>
+                        <p class="fragment mt-1 text-muted fs-smaller" data-fragment-index="8">
+                            Exemplos: Wordpress.com, Wix, Canva
+                        </p>
+
+                        <a href="https://www.ibm.com/br-pt/cloud/learn/iaas-paas-saas" target="_blank"
+                           rel="noopener" class="fragment reference" data-fragment-index="9">ibm.com</a>
+                    </section> <!-- Principais modelos -->
+                    <section data-auto-animate> <!-- Principais modelos -->
+                        <h1 class="subtitle">Computação em Nuvem</h1>
+                        <h2>Principais modelos</h2>
+                        <figure class="r-stretch">
+                            <img src="img/cloud-modelos-responsabilidades.png"
+                                 alt="Responsabilidades dos modelos on-premise, IaaS, PaaS e SaaS"><br>
+                            <a href="https://www.redhat.com/en/topics/cloud-computing/what-is-iaas" target="_blank"
+                               rel="noopener" class="reference">redhat.com</a>
+                        </figure>
+                    </section> <!-- Principais modelos -->
+                </section> <!-- Computação em Nuvem -->
+
+                <section> <!-- Aplicação -->
+                    <section>
+                        <h1>Aplicação</h1>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Aplicação</h1>
+                        <h2>Arquitetura do exemplo</h2>
+                        <img src="img/aplicacao.svg" class="inject-svg" alt="Aplicação">
+                    </section>
+                </section> <!-- Aplicação -->
+
+                <section> <!-- Amazon Web Services -->
+                    <section>
+                        <h1>Amazon Web Services</h1>
+                    </section>
+                    <section> <!-- Visão geral -->
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>Visão geral</h2>
+                        <p>
+                            O principal provedor de <em>cloud</em> segundo o Gartner nos últimos 10 anos, com mais de
+                            200 serviços disponíveis
+                        </p>
+
+                        <a href="https://aws.amazon.com/" target="_blank" rel="noopener" class="reference">
+                            aws.amazon.com
+                        </a>
+                    </section> <!-- Visão geral -->
+                    <section> <!-- Alguns serviços -->
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>Alguns serviços</h2>
+                        <ul class="fs-small">
+                            <li class="fragment" data-fragment-index="0">
+                                API: API Gateway
+                            </li>
+                            <li class="fragment" data-fragment-index="1">
+                                Armazenamento: <span class="fragment highlight-blue" data-fragment-index="15">S3</span>,
+                                EFS
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Bancos de Dados:
+                                <span class="fragment highlight-blue" data-fragment-index="15">RDS</span>,
+                                DocumentDB, MemoryDB
+                            </li>
+                            <li class="fragment" data-fragment-index="3">
+                                CDN: <span class="fragment highlight-blue" data-fragment-index="15">CloudFront</span>
+                            </li>
+                            <li class="fragment" data-fragment-index="4">
+                                Configurações:
+                                <span class="fragment highlight-blue" data-fragment-index="15">Systems Manager</span>
+                            </li>
+                            <li class="fragment" data-fragment-index="5">
+                                Containerização: ECS, EKS
+                            </li>
+                            <li class="fragment" data-fragment-index="6">
+                                DNS: <span class="fragment highlight-blue" data-fragment-index="15">Route 53</span>
+                            </li>
+                            <li class="fragment" data-fragment-index="7">
+                                Desenvolvimento:
+                                CodeBuild,
+                                CodeCommit,
+                                <span class="fragment highlight-blue" data-fragment-index="15">CodeDeploy</span>,
+                                CodePipeline
+                            </li>
+                            <li class="fragment" data-fragment-index="8">
+                                Mensageria: EventBridge, SQS
+                            </li>
+                            <li class="fragment" data-fragment-index="9">
+                                Monitoramento: CloudWatch
+                            </li>
+                            <li class="fragment" data-fragment-index="10">
+                                Mídia: MediaConvert, MediaLive
+                            </li>
+                            <li class="fragment" data-fragment-index="11">
+                                Processamento: <span class="fragment highlight-blue" data-fragment-index="15">EC2</span>
+                            </li>
+                            <li class="fragment" data-fragment-index="12">
+                                Provisionamento:
+                                <span class="fragment highlight-blue" data-fragment-index="15">CloudFormation</span>
+                            </li>
+                            <li class="fragment" data-fragment-index="13">
+                                Segurança: <span class="fragment highlight-blue" data-fragment-index="15">IAM</span>,
+                                KMS
+                            </li>
+                            <li class="fragment" data-fragment-index="14">
+                                Serverless: <span class="fragment highlight-blue" data-fragment-index="15">Lambda</span>
+                            </li>
+                        </ul>
+                    </section> <!-- Alguns serviços -->
+                    <section data-auto-animate> <!-- Infraestrutura global -->
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>Infraestrutura global</h2>
+
+                        <div>
+                            <p class="fw-bold fs-large">Regiões <em>(Regions)</em></p>
+                            <p>
+                                Local físico onde um grupo de <em>datacenters</em> está localizado
+                            </p>
+                            <div class="alert fs-small">
+                                Exemplos: São Paulo (sa-east-1), Virgínia do Norte (us-east-1) e Califórnia (us-west-1)
+                            </div>
+                        </div>
+
+                        <a href="https://aws.amazon.com/pt/about-aws/global-infrastructure/" target="_blank"
+                           rel="noopener" class="reference">aws.amazon.com</a>
+                    </section>
+                    <section data-auto-animate=""> <!-- Infraestrutura global -->
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>Infraestrutura global</h2>
+
+                        <div>
+                            <p class="fw-bold fs-large">Zonas de disponibilidade <em>(Availability zones)</em></p>
+                            <p>
+                                Cada grupo de <em>datacenters</em> em uma região com alta conectividade entre si, úteis
+                                para prover alta disponibilidade dentro de uma região
+                            </p>
+                            <div class="alert fs-small">
+                                Exemplos: sa-east-1a, sa-east-1b, sa-east-1c
+                            </div>
+                        </div>
+
+                        <a href="https://aws.amazon.com/pt/about-aws/global-infrastructure/" target="_blank"
+                           rel="noopener" class="reference">aws.amazon.com</a>
+                    </section>
+                    <section data-auto-animate=""> <!-- Infraestrutura global -->
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>Infraestrutura global</h2>
+
+                        <div>
+                            <p class="fw-bold fs-large">Zonas locais <em>(Local zones)</em></p>
+                            <p>
+                                Locais alternativos mais próximos a grandes cidades para diminuir a latência
+                            </p>
+                            <div class="alert fs-small">
+                                Exemplos: Rio de Janeiro, Fortaleza, Buenos Aires, Santiago
+                            </div>
+                        </div>
+
+                        <a href="https://aws.amazon.com/pt/about-aws/global-infrastructure/" target="_blank"
+                           rel="noopener" class="reference">aws.amazon.com</a>
+                    </section> <!-- Infraestrutura global -->
+                    <section> <!-- Infraestrutura global -->
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>Infraestrutura global</h2>
+                        <div class="d-flex fs-small justify-between">
+                            <p class="mt-0 mb-1">34 regiões</p>
+                            <p class="mt-0 mb-1">108 zonas de disponibilidade</p>
+                            <p class="mt-0 mb-1">245 países e territórios atendidos</p>
+                        </div>
+                        <img src="img/mapa-infra-aws.jpg" alt="Mapa de infraestrutura global da AWS" class="my-0">
+                        <a href="https://aws.amazon.com/pt/about-aws/global-infrastructure/" target="_blank"
+                           rel="noopener" class="reference">aws.amazon.com</a>
+                    </section> <!-- Infraestrutura global -->
+                    <section>
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>Rede global de borda <em>(edge network)</em></h2>
+
+                        <img src="img/cloudfront-mapa.png" alt="Rede global de borda do CloudFront">
+                        <a href="https://aws.amazon.com/pt/cloudfront/features/#Global_Edge_Network" target="_blank"
+                           rel="noopener" class="reference">
+                            aws.amazon.com/cloudfront
+                        </a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2><em>Free Tier</em></h2>
+                        <p>
+                            Disponibilização de serviços gratuitos na AWS em três categorias: testes gratuitos, 12 meses
+                            gratuitos ou sempre gratuitos
+                        </p>
+                        <a href="https://aws.amazon.com/pt/free/" target="_blank" rel="noopener" class="reference">
+                            Nível gratuito da AWS
+                        </a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>Prática</h2>
+                        <p>Vamos criar uma conta na AWS, acessá-la e entender os principais conceitos de navegação</p>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Amazon Web Services</h1>
+                        <h2>AWS CLI</h2>
+                        <p>
+                            Ferramenta de linha de comando (terminal) para gerenciar sua conta da AWS
+                        </p>
+                        <a href="https://aws.amazon.com/pt/cli/" target="_blank" rel="noopener" class="reference">
+                            AWS Command Line Interface
+                        </a>
+                    </section>
+                </section> <!-- Amazon Web Services -->
+
+                <section> <!-- IAM -->
+                    <section>
+                        <h1 class="subtitle">Serviços</h1>
+                        <h2>AWS IAM</h2>
+                    </section>
+
+                    <section> <!-- AWS IAM -->
+                        <h1 class="subtitle">Serviços &raquo; IAM</h1>
+                        <h3>Definição</h3>
+                        <p>
+                            O <em>AWS Identity and Access Management</em> é um serviço responsável pela gestão de
+                            identidades e acesso aos serviços de contas da AWS
+                        </p>
+                        <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html" target="_blank"
+                           rel="noopener" class="reference">docs.aws.amazon.com</a>
+                    </section> <!-- AWS IAM -->
+                    <section> <!-- AWS IAM: Entidades -->
+                        <h1 class="subtitle">Serviços &raquo; IAM</h1>
+                        <h3>Entidades</h3>
+
+                        <div>
+                            <h3 class="mb-0">Usuário</h3>
+                            <p>
+                                Entidade que representa uma pessoa ou aplicação que irá interagir com a AWS, que possui
+                                suas próprias credenciais <em>(access keys)</em> e deve receber as permissões
+                                necessárias para liberar acesso aos recursos da AWS
+                            </p>
+
+                            <h4 class="mb-0"><em>Access Key</em></h4>
+                            <p>
+                                Par de chaves <em>(access key ID e secret access key)</em> que garante acesso a um
+                                usuário
+                            </p>
+                        </div>
+
+                        <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html" target="_blank"
+                           rel="noopener" class="reference">docs.aws.amazon.com</a>
+                    </section>
+                    <section> <!-- AWS IAM: Entidades -->
+                        <h1 class="subtitle">Serviços &raquo; IAM</h1>
+                        <h3>Entidades</h3>
+
+                        <div class="mb-2">
+                            <h3 class="mb-0">Função <em>(role)</em></h3>
+                            <p>
+                                Identidade que também pode receber permissões e que permite que usuários a incorpore
+                                para receber o acesso desejado
+                            </p>
+                        </div>
+
+                        <div class="mb-2">
+                            <h3 class="mb-0">Política <em>(policy)</em></h3>
+                            <p>
+                                Conjunto de permissões permitindo ou negando o acesso à elas, que podem ser aplicadas a
+                                usuários, grupos de usuários ou funções
+                            </p>
+                        </div>
+
+                        <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html" target="_blank"
+                           rel="noopener" class="reference">docs.aws.amazon.com</a>
+                    </section> <!-- AWS IAM: Entidades -->
+                    <section>
+                        <h1 class="subtitle">Serviços &raquo; IAM</h1>
+                        <h3>Entidades</h3>
+                        <img src="img/iam.svg" class="inject-svg" alt="IAM">
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Serviços &raquo; IAM</h1>
+                        <h3>Prática</h3>
+
+                        <p>
+                            Vamos criar um usuário e ver na prática como essas entidades se relacionam
+                        </p>
+
+                        <a href="https://aws.amazon.com/pt/iam/" target="_blank" rel="noopener" class="reference">
+                            AWS IAM
+                        </a>
+                    </section>
+                </section> <!-- IAM -->
+
+                <section> <!-- S3 -->
+                    <section data-auto-animate data-auto-animate-restart>
+                        <h1 class="subtitle">Serviços para nosso frontend</h1>
+                        <h2>Hospedagem</h2>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend</h1>
+                        <h2>Hospedagem</h2>
+                        <p>
+                            Como nosso <em>frontend</em> é composto apenas de arquivos estáticos (HTML, CSS, JavaScript,
+                            imagens etc...), podemos utilizar os serviços de armazenamento de arquivos da
+                            <em>cloud</em>, como é o caso do <strong>AWS S3</strong> <em>(Simple Storage Service)</em>
+                        </p>
+                        <a href="https://aws.amazon.com/pt/s3/" target="_blank" rel="noopener" class="reference">
+                            aws.amazon.com/s3
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend</h1>
+                        <h2>Hospedagem</h2>
+                        <p>
+                            O <em>Amazon Simple Storage Service</em> é um serviço de armazenamento de objetos que
+                            oferece escalabilidade, disponibilidade de dados, segurança e desempenho líderes do setor
+                        </p>
+                        <blockquote>
+                            Com classes de armazenamento econômicas e recursos de gerenciamento fáceis de usar, você
+                            pode otimizar custos, organizar dados e configurar controles de acesso ajustados para
+                            atender a requisitos específicos de negócios, organizacionais e de conformidade
+                        </blockquote>
+                        <a href="https://aws.amazon.com/pt/s3/" target="_blank" rel="noopener" class="reference">
+                            aws.amazon.com/s3
+                        </a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Serviços para nosso frontend</h1>
+                        <h2>Exemplos de uso do S3</h2>
+                        <img src="img/s3-uso.png" alt="S3">
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; S3</h1>
+                        <h2>Prática</h2>
+                        <p>
+                            Criaremos um <em>bucket</em>, que é como um "disco" com configurações como
+                            localização geográfica, políticas de versionamento e <em>backup</em>, sendo o responsável
+                            por conter nossos arquivos
+                        </p>
+                        <a href="https://aws.amazon.com/pt/s3/getting-started/" target="_blank" rel="noopener"
+                           class="reference">
+                            aws.amazon.com/s3
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; S3</h1>
+                        <h2>Prática</h2>
+                        <ol>
+                            <li>Selecione o serviço <kbd>S3</kbd> no painel da AWS</li>
+                            <li>
+                                Clique no botão <kbd lang="en">Create bucket</kbd><kbd lang="pt">Criar bucket</kbd>
+                            </li>
+                            <li>
+                                Escolha um nome único para o <em>bucket</em>, que deve ser globalmente exclusivo (ou
+                                seja, não pode coincidir nem com o de outras contas)
+                            </li>
+                            <li>
+                                Desmarque a opção <kbd lang="en">Block <em>all</em> public access</kbd>
+                                <kbd lang="pt">Bloquear <em>todo</em> o acesso público</kbd>
+                            </li>
+                            <li>
+                                No alerta que irá aparecer logo abaixo dizendo que o <em>bucket</em> terá acesso
+                                público, marque o <em>checkbox</em> dizendo que você está ciente
+                            </li>
+                            <li>
+                                No final da página, clique em <kbd lang="en">Create bucket</kbd><kbd lang="pt">Criar
+                                bucket</kbd> para concluir
+                            </li>
+                        </ol>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; S3</h1>
+                        <h2>Prática</h2>
+                        <ol start="7">
+                            <li>
+                                Ao ser redirecionado para a listagem, clique no <em>bucket</em> recém-criado
+                            </li>
+                            <li>
+                                Vá até a aba <kbd lang="en">Properties</kbd><kbd lang="pt">Propriedades</kbd>, desça até
+                                a seção <kbd lang="en">Static website hosting</kbd><kbd lang="pt">Hospedagem de site
+                                estático</kbd> e clique em <kbd lang="en">Edit</kbd><kbd lang="pt">Editar</kbd>
+                            </li>
+                            <li>
+                                Ative a opção de hospedagem de site estático, e defina os campos
+                                <kbd lang="en">Index document</kbd><kbd lang="pt">Documento de índice</kbd> e
+                                <kbd lang="en">Error document</kbd><kbd lang="pt">Documento de erro</kbd> como
+                                <code>index.html</code>
+                            </li>
+                            <li>
+                                Clique em <kbd lang="en">Save changes</kbd><kbd lang="pt">Salvar alterações</kbd> para
+                                salvar a configuração
+                            </li>
+                        </ol>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; S3</h1>
+                        <h2>Prática</h2>
+                        <ol start="11">
+                            <li>
+                                Na tela de detalhes do <em>bucket</em>, clique na aba
+                                <kbd lang="en">Permissions</kbd><kbd lang="pt">Permissões</kbd>
+                            </li>
+                            <li>
+                                Em <kbd lang="en">Bucket policy</kbd><kbd lang="pt">Política do bucket</kbd>, clique em
+                                <kbd lang="en">Edit</kbd><kbd lang="pt">Editar</kbd> e cole o conteúdo abaixo no editor,
+                                alterando <code>Nome-Do-Bucket</code> na linha 8 pelo nome do seu <em>bucket</em>:
+
+                                <pre><code class="json clipboard" data-trim data-line-numbers>
+                                    {
+                                        "Version": "2012-10-17",
+                                        "Statement": [
+                                            {
+                                                "Effect": "Allow",
+                                                "Principal": "*",
+                                                "Action": "s3:GetObject",
+                                                "Resource": "arn:aws:s3:::Nome-Do-Bucket/*"
+                                            }
+                                        ]
+                                    }
+                                </code></pre>
+                            </li>
+                            <li>
+                                Clique em <kbd lang="en">Save changes</kbd><kbd lang="pt">Salvar alterações</kbd> para
+                                salvar a política
+                            </li>
+                        </ol>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; S3</h1>
+                        <h2>Prática</h2>
+                        <ol start="14">
+                            <li>
+                                Vá até a aba <kbd lang="en">Objects</kbd><kbd lang="pt">Objetos</kbd> para ver a
+                                listagem de arquivos do seu <em>bucket</em>
+                            </li>
+                            <li>
+                                Clique no botão <kbd lang="en">Upload</kbd><kbd lang="pt">Carregar</kbd> e, na tela que
+                                abrir, clique em <kbd lang="en">Add files</kbd><kbd lang="pt">Adicionar arquivos</kbd> e
+                                escolha o arquivo <code>demo/frontend-exemplo-s3/index.html</code> desse repositório
+                            </li>
+                            <li>
+                                No final da página, clique em <kbd lang="en">Upload</kbd><kbd lang="pt">Carregar</kbd>
+                                para subir o arquivo, aguarde alguns instantes e, se o processo der certo, clique em
+                                <kbd lang="en">Close</kbd><kbd lang="pt">Fechar</kbd> no alerta de sucesso
+                            </li>
+                            <li>
+                                Ao ser redirecionado novamente para a tela de propriedades, desça mais uma vez até a
+                                seção <kbd lang="en">Static website hosting</kbd><kbd lang="pt">Hospedagem de site
+                                estático</kbd>, copie o endereço do <em>endpoint</em> exibido e acesse-o em seu
+                                navegador
+                            </li>
+                            <li>
+                                Você deverá ver um <code>Hello, world!</code> na tela
+                            </li>
+                        </ol>
+                    </section>
+                </section> <!-- S3 -->
+
+                <section> <!-- CloudFront -->
+                    <section data-auto-animate data-auto-animate-restart>
+                        <h1 class="subtitle">Serviços para nosso frontend</h1>
+                        <h2>Distribuição do Conteúdo</h2>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend</h1>
+                        <h2>Distribuição do Conteúdo</h2>
+                        <p>
+                            Um Serviço de Rede de Entrega de Conteúdo <em>(do inglês Content Delivery Network,
+                            resultando na sigla CDN)</em> é responsável pelo <em>caching</em> e distribuição de conteúdo
+                            a partir de uma das localizações de borda mais próximas de seus clientes
+                        </p>
+                        <a href="https://www.cloudflare.com/pt-br/learning/cdn/what-is-a-cdn/" target="_blank"
+                           rel="noopener" class="reference">
+                            O que é rede de distribuição de conteúdo (CDN)?
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend</h1>
+                        <h2>Distribuição do Conteúdo</h2>
+                        <img src="img/cloudfront-uso.png" alt="Uso do CloudFront">
+                        <a href="https://aws.amazon.com/pt/cloudfront/" target="_blank" rel="noopener"
+                           class="reference">
+                            aws.amazon.com/cloudfront
+                        </a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; CloudFront</h1>
+                        <h2>Rede global de borda <em>(edge network)</em></h2>
+
+                        <img src="img/cloudfront-mapa.png" alt="Rede global de borda do CloudFront">
+                        <a href="https://aws.amazon.com/pt/cloudfront/features/#Global_Edge_Network" target="_blank"
+                           rel="noopener" class="reference">
+                            aws.amazon.com/cloudfront
+                        </a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; CloudFront</h1>
+                        <h2>Conceitos</h2>
+
+                        <p class="fw-bold mb-0">Origem</p>
+                        <p class="mt-0">
+                            Servidor que está rodando e servindo a aplicação
+                        </p>
+
+                        <p class="fw-bold mb-0">Distribuição</p>
+                        <p class="mt-0">
+                            Cadastro criado para cada origem, com suas configurações e políticas de <em>caching</em>
+                        </p>
+
+                        <p class="fw-bold mb-0">Invalidação</p>
+                        <p class="mt-0">
+                            Ação de marcar um objeto <em>(ou grupo de objetos)</em> como obsoletos, fazendo com que o
+                            CloudFront busque novamente da origem
+                        </p>
+
+                        <a href="https://aws.amazon.com/pt/getting-started/hands-on/deliver-content-faster/"
+                           target="_blank" rel="noopener" class="reference">
+                            aws.amazon.com/cloudfront
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; CloudFront</h1>
+                        <h2>Prática</h2>
+                        <p>
+                            Iremos criar uma distribuição no <strong>CloudFront</strong> e apontá-la para o
+                            <em>bucket</em> S3 que criamos com os arquivos estáticos do <em>frontend</em>
+                        </p>
+                        <a href="https://aws.amazon.com/pt/cloudfront/" target="_blank" rel="noopener"
+                           class="reference">
+                            aws.amazon.com/cloudfront
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; CloudFront</h1>
+                        <h2>Prática</h2>
+                        <ol>
+                            <li>
+                                Primeiro, precisamos <b>desabilitar</b> o acesso público e a hospedagem de site do
+                                <em>bucket</em>, pois apenas o <kbd>CloudFront</kbd> terá acesso a ele
+                            </li>
+                            <li>Selecione o serviço <kbd>CloudFront</kbd> no painel da AWS</li>
+                            <li>
+                                Clique em <kbd>Create Distribution</kbd>
+                            </li>
+                            <li>
+                                Em <kbd>Origin Domain</kbd>, encontre o <em>bucket</em> criado anteriormente
+                            </li>
+                            <li>
+                                Em <kbd>Origin access</kbd>, selecione <kbd>Origin access control settings</kbd>
+                            </li>
+                            <li>
+                                No campo que aparecer, clique em <kbd>Create new OAC</kbd> e, no <em>modal</em>, apenas
+                                clique em <kbd>Create</kbd> &mdash; um aviso irá ser exibido dizendo que precisaremos
+                                configurar a política do <em>bucket</em>
+                            </li>
+                            <li>
+                                Em <kbd>Web Application Firewall (WAF)</kbd>, marque <kbd>Do not enable security
+                                protections</kbd>, já que estamos apenas testando e esse recurso não é barato
+                            </li>
+                        </ol>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; CloudFront</h1>
+                        <h2>Prática</h2>
+                        <ol start="8">
+                            <li>
+                                Em <kbd>Default root object</kbd>, preencha <code>index.html</code>
+                            </li>
+                            <li>
+                                Clique em <kbd>Create Distribution</kbd> para finalizar
+                            </li>
+                            <li>
+                                Ao ser redirecionado para a tela de detalhes da distribuição, um alerta amarelo irá
+                                relembrar que precisamos configurar a política do <em>bucket</em>
+                            </li>
+                            <li>
+                                Nesse alerta, clique no botão <kbd>Copy policy</kbd> e depois no <em>link</em>
+                                <kbd>Go to S3 bucket permissions to update policy</kbd>
+                            </li>
+                            <li>
+                                Vá até a aba <kbd lang="en">Permissions</kbd><kbd lang="pt">Permissões</kbd> do
+                                <em>bucket</em> e edite a
+                                <kbd lang="en">Bucket policy</kbd><kbd lang="pt">Política do bucket</kbd>, colando no
+                                editor a política que você copiou da distribuição do CloudFront
+                            </li>
+                            <li>
+                                Volte até a distribuição do CloudFront, aguarde o campo <kbd>Last modified</kbd> mudar
+                                do estado <code>Deploying</code> para uma data, copie o endereço de <kbd>Distribution
+                                domain name</kbd> e acesse-o em seu navegador
+                            </li>
+                            <li>
+                                Você deverá ver novamente o mesmo <code>Hello, world!</code> na tela
+                            </li>
+                        </ol>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; CloudFront</h1>
+                        <h2>Prática</h2>
+                        <ol start="14">
+                            <li>
+                                Vamos voltar à distribuição para configurar o HTTPS utilizando o
+                                <a href="https://aws.amazon.com/pt/certificate-manager/">AWS Certificate Manager</a>
+                            </li>
+                            <li>
+                                Na seção <kbd>Settings</kbd>, clique no botão <kbd>Edit</kbd>
+                            </li>
+                            <li>
+                                Em <kbd>Custom SSL certificate</kbd>, clique em <kbd>Request certificate</kbd> e, na
+                                tela que abrir do <em>Certificate Manager</em>, clique em
+                                <kbd lang="en">Next</kbd><kbd lang="pt">Próximo</kbd>
+                            </li>
+                            <li>
+                                Preencha com o nome do domínio em <kbd lang="en">Fully qualified domain name</kbd><kbd
+                                    lang="pt">Nome de domínio totalmente qualificado</kbd>
+                            </li>
+                            <li>
+                                Clique no botão <kbd lang="en">Add another name to this certificate</kbd><kbd
+                                    lang="pt">Adicionar outro nome a este certificado</kbd> e, no novo campo, insira o
+                                mesmo domínio, mas prefixe o subdomínio <code>api.</code>
+                            </li>
+                            <li>
+                                Desça até o final da tela e clique em
+                                <kbd lang="en">Request</kbd><kbd lang="pt">Solicitar</kbd>
+                            </li>
+                        </ol>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços para nosso frontend &raquo; CloudFront</h1>
+                        <h2>Prática</h2>
+                        <ol start="21">
+                            <li>
+                                Após alguns segundos, você será verá os detalhes do certificado
+                            </li>
+                            <li>
+                                Copie as colunas <kbd lang="en">CNAME name</kbd><kbd lang="pt">Nome CNAME</kbd> e
+                                <kbd lang="en">CNAME value</kbd><kbd lang="pt">Valor CNAME</kbd> e cole-as na planilha
+                            </li>
+                            <li>
+                                Me acompanhe enquanto eu crio essas entradas no DNS
+                            </li>
+                            <li>
+                                Volte para a tela de edição do CloudFront, vá até a seção
+                                <kbd>Alternate domain name (CNAME)</kbd>, clique em <kbd>Add item</kbd> e preencha
+                                o nome de domínio
+                            </li>
+                            <li>
+                                Em <kbd>Custom SSL certificate</kbd>, selecione o certificado gerado
+                            </li>
+                            <li>
+                                Clique em <kbd lang="en">Save changes</kbd><kbd lang="pt">Salvar alterações</kbd> para
+                                gravar as mudanças
+                            </li>
+                            <li>
+                                Acesse o domínio em seu navegador <em>(dependendo do seu serviço de DNS, isso pode
+                                demorar um pouco)</em>
+                            </li>
+                        </ol>
+                    </section>
+                </section> <!-- CloudFront -->
+
+                <section> <!-- Route 53 -->
+                    <section data-auto-animate data-auto-animate-restart>
+                        <h1 class="subtitle">Serviços</h1>
+                        <h2>DNS</h2>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços</h1>
+                        <h2>DNS</h2>
+                        <p>
+                            O <em>Domain Name System</em> é um serviço que tem como principal funcionalidade a conversão
+                            de domínios legíveis por seres humanos <em>(por exemplo <kbd>google.com</kbd></em>) em
+                            endereços IP <em>(por exemplo <kbd>142.251.132.238</kbd></em>)
+                        </p>
+                        <p>
+                            Existem diversos serviços, como o
+                            <a href="https://www.cloudflare.com" target="_blank" rel="noopener">
+                                CloudFlare
+                            </a> <em>(gratuito)</em> ou
+                            <a href="https://aws.amazon.com/pt/route53/what-is-dns/" target="_blank" rel="noopener">
+                                AWS Route 53
+                            </a> <em>(pago, mas com diversas integrações com outras ferramentas da AWS)</em>
+                        </p>
+                        <a href="https://www.cloudflare.com/pt-br/learning/dns/what-is-dns/" target="_blank"
+                           rel="noopener" class="reference">cloudflare.com/learning/dns</a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Serviços</h1>
+                        <h2>Route 53</h2>
+                        <p>
+                            Serviço de DNS altamente integrado com funcionalidades da AWS <em>(como EC2, S3, ELB)</em>,
+                            onde o usuário é cobrado pelas zonas hospedadas e número de consultas realizadas, <b>não
+                            sendo disponibilizado no <em>Free Tier</em></b>
+                        </p>
+
+                        <a href="https://aws.amazon.com/pt/route53/" target="_blank" rel="noopener" class="reference">
+                            aws.amazon.com/route53
+                        </a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Serviços &raquo; Route 53</h1>
+                        <h2>Exemplos de uso</h2>
+
+                        <img src="img/route53-uso.png" alt="Route 53">
+
+                        <br>
+                        <a href="https://aws.amazon.com/pt/route53/" target="_blank" rel="noopener" class="reference">
+                            aws.amazon.com/route53
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Serviços &raquo; Route 53</h1>
+                        <h2>Prática</h2>
+                        <ol>
+                            <li>
+                                Selecione o serviço <kbd>Route 53</kbd> no painel da AWS
+                            </li>
+                            <li>
+                                No painel de navegação lateral, clique em <kbd lang="en">Hosted zones</kbd> <kbd
+                                    lang="pt">Zonas hospedadas</kbd>
+                            </li>
+                            <li>
+                                Clique no botão <kbd lang="en">Create hosted zone</kbd><kbd lang="pt">Criar zona
+                                hospedada</kbd>
+                            </li>
+                            <li>
+                                Preencha o nome do domínio desejado
+                            </li>
+                            <li>
+                                Clique no botão <kbd lang="en">Create hosted zone</kbd><kbd lang="pt">Criar zona
+                                hospedada</kbd> para confirmar a criação
+                            </li>
+                        </ol>
+                    </section>
+                </section> <!-- Route 53 -->
+
+                <section> <!-- Arquitetura do frontend -->
+                    <section data-auto-animate data-auto-animate-restart>
+                        <h1 class="subtitle">Arquitetura</h1>
+                        <h2>Frontend</h2>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Arquitetura</h1>
+                        <h2>Frontend</h2>
+                        <img src="img/frontend.svg" class="inject-svg" alt="Frontend">
+                    </section>
+                </section> <!-- Arquitetura do frontend -->
+
+                <section> <!-- Deploy -->
+                    <section data-auto-animate data-auto-animate-restart>
+                        <h1>Deploy</h1>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy</h1>
+                        <h2>CI/CD</h2>
+                        <blockquote>
+                            CI/CD, continuous integration/continuous delivery, é um método para entregar aplicações com
+                            frequência aos clientes. Para isso, é aplicada a automação nas etapas do desenvolvimento de
+                            aplicações. Os principais conceitos atribuídos a esse método são a integração, entrega e
+                            implantação contínuas.
+                        </blockquote>
+                        <a href="https://www.redhat.com/pt-br/topics/devops/what-is-ci-cd" class="reference"
+                           target="_blank" rel="noopener">Red Hat</a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Deploy</h1>
+                        <h2>Fluxos de CI/CD</h2>
+                        <img src="img/ci-cd-flow-desktop.png" alt="CI/CD" style="max-width: 640px;">
+                        <a href="https://www.redhat.com/pt-br/topics/devops/what-is-ci-cd" class="reference"
+                           target="_blank" rel="noopener">Red Hat</a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Deploy</h1>
+                        <h2>Ferramentas de CI</h2>
+                        <div class="d-flex cols-2">
+                            <div>
+                                <ul class="margin">
+                                    <li>
+                                        Sistemas de Versão
+                                        <ul>
+                                            <li>
+                                                <a href="https://bitbucket.org/product/features/pipelines"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    Bitbucket Pipelines
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://docs.github.com/en/actions"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment custom highlight-accent" data-fragment-index="1">
+                                                    GitHub Actions
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://docs.gitlab.com/ee/ci/"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    GitLab CI/CD
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Cloud
+                                        <ul>
+                                            <li>
+                                                <a href="https://aws.amazon.com/codepipeline/"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    AWS CodePipeline
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://azure.microsoft.com/en-us/services/devops/"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    Azure DevOps
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://cloud.google.com/solutions/continuous-integration/"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    Google Cloud CI
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class="margin">
+                                    <li>
+                                        Ferramentas avulsas
+                                        <ul>
+                                            <li>
+                                                <a href="https://www.atlassian.com/software/bamboo"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    Atlassian Bamboo
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://circleci.com/"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    CircleCI
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.ibm.com/products/devops"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    IBM DevOps Accelerate
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.jenkins.io/"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    Jenkins
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.jetbrains.com/teamcity/"
+                                                   target="_blank" rel="noopener"
+                                                   class="fragment semi-fade-out" data-fragment-index="1">
+                                                    JetBrains TeamCity
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section> <!-- Deploy -->
+
+                <section> <!-- GitHub Actions -->
+                    <section>
+                        <h1 class="subtitle">Deploy</h1>
+                        <h1 class="subtitle">GitHub Actions</h1>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Conceito</h3>
+                        <blockquote>
+                            Automatize, personalize e execute seus fluxos de trabalho de desenvolvimento do software
+                            diretamente no seu repositório com o GitHub Actions. Você pode descobrir, criar e
+                            compartilhar ações para realizar qualquer trabalho que desejar, incluindo CI/CD, bem como
+                            combinar ações em um fluxo de trabalho completamente personalizado.
+                        </blockquote>
+                        <a href="https://docs.github.com/en/actions" target="_blank" rel="noopener" class="reference">
+                            Documentação do GitHub Actions
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Sintaxe</h3>
+                        <p>
+                            Um <b>Fluxo de trabalho</b> <em>("workflow")</em> é configurado através de um arquivo
+                            <a href="https://yaml.org/" target="_blank" rel="noopener">YAML</a> na pasta
+                            <code>.github/workflows</code> do seu repositório
+                        </p>
+                        <a href="https://docs.github.com/en/actions" target="_blank" rel="noopener" class="reference">
+                            Documentação do GitHub Actions
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Sintaxe</h3>
+                        <p>
+                            Cada <b>Fluxo</b> é composto por:
+                        </p>
+                        <ul class="margin">
+                            <li class="fragment">
+                                Gatilhos <em>("triggers")</em> responsáveis por dispará-lo, como <em>push</em> em alguma
+                                <em>branch</em>, <em>pull request</em> aberta, <em>issue</em> criada, sistema de
+                                agendamento <em>(como o "cron")</em>, entre outros
+                            </li>
+                            <li class="fragment">
+                                <em>Jobs</em> que podem ser executados de maneira sequencial ou em paralelo entre si,
+                                que serão executados em <em>runners</em> (geralmente um <em>container</em>)
+                            </li>
+                            <li class="fragment">
+                                Os <em>Jobs</em> são compostos de etapas <em>("steps")</em> para executar
+                                <em>scripts</em> definidos por você ou ações de terceiros (que são disponibilizadas como
+                                pacotes)
+                            </li>
+                        </ul>
+                        <a href="https://docs.github.com/en/actions" target="_blank" rel="noopener" class="reference">
+                            Documentação do GitHub Actions
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Sintaxe</h3>
+                        <pre data-id="pre"><code class="yaml" data-trim
+                                                 data-line-numbers="1|3-7|9|9-12|9-20|9-26|28-32|28-39">
+                            name: Backend
+
+                            on:
+                              push:
+                                branches: [ "main" ]
+                              pull_request:
+                                branches: [ "main" ]
+
+                            jobs:
+                              job1:
+                                name: Nome do primeiro job
+                                runs-on: ubuntu-latest
+                                steps:
+                                  - name: "Passo que usa um pacote pronto"
+                                    uses: autor/pacote@versao
+                                    with:
+                                      configuracao1: valor1
+                                      configuracao2: valor2
+                                      configuracao3: valor3
+                                      configuracao4: ${{ secrets.VARIAVEL_DO_SECRETS }}
+
+                                  - name: "Passo que executa comandos no shell"
+                                    run: |
+                                      comando1 args...
+                                      comando2 args...
+                                      comando3 args...
+
+                              job2:
+                                name: Nome do segundo job
+                                runs-on: ubuntu-latest
+                                needs: job1
+                                if: github.ref == 'refs/heads/main'
+                                steps:
+                                  - name: Login to Container Registry
+                                    uses: docker/login-action@v3
+                                    with:
+                                      registry: ${{ env.REGISTRY }}
+                                      username: ${{ github.actor }}
+                                      password: ${{ secrets.GITHUB_TOKEN }}
+                        </code></pre>
+                        <a href="https://docs.github.com/pt/actions/using-workflows/workflow-syntax-for-github-actions"
+                           rel="noopener" target="_blank" class="reference" data-id="reference">
+                            Sintaxe de fluxo de trabalho para o GitHub Actions
+                        </a>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Dica</h3>
+                        <p>
+                            Ao invés de ficar fazendo <em>push</em> ou outras ações reais no seu repositório para rodar
+                            um <em>workflow</em>, recomendo usar o
+                            <a href="https://github.com/nektos/act" target="_blank"
+                               rel="noopener"><code>nektos/act</code></a>, ferramenta que permite executá-lo localmente
+                            em sua máquina,
+                            simulando os eventos de gatilho
+                        </p>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Deploy</h1>
+                        <h2>GitHub Actions</h2>
+                        <p><b>Exemplo</b> de <em>pipeline</em>:</p>
+                        <div class="d-flex h-100">
+                            <div>
+                                <pre class="my-0"><code class="yaml" data-trim data-fragment-index="0"
+                                                        data-line-numbers="|6-7|9-10|12-13|15-18|20-21|23-24|26-27|29-30|32-33|35-36">
+                                    jobs:
+                                      job1:
+                                        name: Nome do primeiro job
+                                        runs-on: ubuntu-latest
+                                        steps:
+                                          - name: Checkout do código
+                                            uses: actions/checkout@v4
+
+                                          - name: Configurando ambiente
+                                            run: apt-get update &amp;&amp; apt-get install jq
+
+                                          - name: Instalando dependências de desenvolvimento
+                                            run: npm install --production=false
+
+                                          - name: Análise estática do código
+                                            run: |
+                                              npm run lint
+                                              sonarscanner src/
+
+                                          - name: Build de desenvolvimento
+                                            run: npm run build:dev
+
+                                          - name: Testes
+                                            run: npm test
+
+                                          - name: Instalando dependências de produção
+                                            run: npm install --production=true
+
+                                          - name: Build de produção
+                                            run: npm run build
+
+                                          - name: Deploy
+                                            run: ./deploy-to-production build/
+                                </code></pre>
+                            </div>
+                            <div>
+                                <ol id="pipeline-steps">
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="0">
+                                        Checkout do código
+                                    </li>
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="1">
+                                        Configuração do ambiente
+                                    </li>
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="2">
+                                        Instalação de dependências de desenvolvimento
+                                    </li>
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="3">
+                                        Análise estática do código
+                                        <ul>
+                                            <li><em>Linting</em></li>
+                                            <li>Análise de segurança</li>
+                                        </ul>
+                                    </li>
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="4">
+                                        Build de desenvolvimento
+                                    </li>
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="5">
+                                        Testes
+                                        <ul>
+                                            <li>Testes de unidade</li>
+                                            <li>Testes de integração</li>
+                                            <li>Testes End-to-end</li>
+                                        </ul>
+                                    </li>
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="6">
+                                        Instalação de dependências de produção
+                                    </li>
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="7">
+                                        Build de produção
+                                    </li>
+                                    <li class="fragment fade-in-then-semi-out fragment-pipeline-step"
+                                        data-fragment-index="8">
+                                        Deploy
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Prática</h3>
+                        <p>
+                            Vamos criar um <em>workflow</em> para fazer o <em>deploy</em> do nosso frontend sempre
+                            que houver um <kbd>push</kbd> na <code>main</code>
+                        </p>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Usando OIDC</h3>
+                        <p class="fragment">
+                            Vários serviços (como os provedores de <em>cloud</em>) possuem integrações via
+                            <a href="https://openid.net/developers/how-connect-works/" target="_blank"
+                               rel="noopener">OpenID Connect</a> <em>(OIDC)</em>, protocolo de autenticação baseado no
+                            <a href="https://oauth.net/2/" target="_blank" rel="noopener">OAuth 2</a>, removendo a
+                            necessidade de usar credenciais como <em>access tokens</em> e garantindo maior segurança e
+                            praticidade
+                        </p>
+                        <a href="https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect"
+                           target="_blank" rel="noopener" class="reference fragment">
+                            About security hardening with OpenID Connect - GitHub Docs
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Usando OIDC</h3>
+                        <p>
+                            Para isso, configure na AWS uma <em>relação de confiança</em>, dizendo que determinados
+                            <em>tokens</em> JWt emitidos pelo GitHub Actions podem ter acesso à sua conta, e remova o
+                            uso das <em>access keys</em> de seu <em>workflow</em>
+                        </p>
+                    </section>
+                    <section>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Como funciona o OIDC?</h3>
+                        <img src="img/oidc.svg" class="inject-svg">
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Usando OIDC</h3>
+                        <p class="fs-small my-0">Exemplo <b>sem uso de OIDC</b>:</p>
+                        <pre data-id="pre"><code class="yaml" data-trim data-line-numbers>
+                            jobs:
+                              build:
+                                runs-on: ubuntu-latest
+                                steps:
+                                  - name: "Checkout do código"
+                                    uses: actions/checkout@v4
+
+                                  - name: "Configurando AWS"
+                                    uses: aws-actions/configure-aws-credentials@v4
+                                    with:
+                                      aws-region: ${{ env.AWS_REGION }}
+                                      access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                                      secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+                                  - name: "Subindo no S3"
+                                    run: aws s3 sync ./dist/ s3://${{ env.AWS_BUCKET_NAME }}/ --delete
+                        </code></pre>
+                        <a href="https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services"
+                           target="_blank" rel="noopener" class="reference" data-id="reference">
+                            Configuring OpenID Connect in Amazon Web Services - GitHub Docs
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Usando OIDC</h3>
+                        <p class="fs-small my-0">Exemplo <b>com uso de OIDC</b>:</p>
+                        <pre data-id="pre"><code class="yaml" data-trim data-line-numbers>
+                            jobs:
+                              build:
+                                runs-on: ubuntu-latest
+                                steps:
+                                  - name: "Checkout do código"
+                                    uses: actions/checkout@v4
+
+                                  - name: "Configurando AWS"
+                                    uses: aws-actions/configure-aws-credentials@v4
+                                    with:
+                                      aws-region: ${{ env.AWS_REGION }}
+                                      role-to-assume: ${{ secrets.AWS_ROLE }}
+
+                                  - name: "Subindo no S3"
+                                    run: aws s3 sync ./dist/ s3://${{ env.AWS_BUCKET_NAME }}/ --delete
+                        </code></pre>
+                        <a href="https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services"
+                           target="_blank" rel="noopener" class="reference" data-id="reference">
+                            Configuring OpenID Connect in Amazon Web Services - GitHub Docs
+                        </a>
+                    </section>
+                    <section data-auto-animate>
+                        <h1 class="subtitle">Deploy &raquo; GitHub Actions</h1>
+                        <h3>Usando OIDC</h3>
+                        <h4>Prática</h4>
+                        <p>
+                            Vamos configurar um <em>Identity Provider</em> na AWS, liberando acesso via OIDC para que
+                            <em>tokens</em> JWT emitidos pelo GitHub Actions para nosso repositório possam assumir uma
+                            determinada <kbd>Role</kbd>
+                        </p>
+                    </section>
+                </section> <!-- GitHub Actions -->
+
+                <section>
+                    <h1 class="title">Amanhã...</h1>
+                    <p class="fragment">
+                        Veremos como utilizar EC2, RDS, Balanceador de Carga, Auto Scaling e o CodeDeploy para nosso
+                        <em>backend</em>
+                    </p>
+                    <p class="fragment">
+                        Também veremos como criar um ambiente de <em>sandbox</em> para nossas duas aplicações
+                    </p>
+                </section>
+
+                <section> <!-- Obrigado -->
+                    <h1 class="text-center title" style="margin-left: -1.5em">Obrigado!</h1>
+                    <div class="about-me-links">
+                        <div>
+                            <svg role="img" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.3222 10.383C15.3796 10.9457 15.4125 11.4903 15.4125 12C15.4125 12.9541 15.2972 14.0315 15.1208 15.1208C14.0315 15.2972 12.9541 15.4125 12 15.4125C11.0502 15.4125 9.97313 15.2975 8.87911 15.1205C8.70281 14.0312 8.5875 12.954 8.5875 12C8.5875 11.4905 8.62039 10.9458 8.67789 10.383C9.82608 10.5668 10.9715 10.6875 12 10.6875C13.0286 10.6875 14.174 10.5668 15.3222 10.383Z"
+                                      class="fill"/>
+                                <path d="M16.8752 10.0994C16.9462 10.7579 16.9875 11.399 16.9875 12C16.9875 12.8769 16.8997 13.8389 16.7599 14.8153C18.7425 14.4016 20.575 13.8731 21.5567 13.5722C21.8739 13.475 21.9986 13.4363 22.1658 13.3694C22.2494 13.336 22.326 13.302 22.4259 13.2543C22.4748 12.843 22.5 12.4244 22.5 12C22.5 10.878 22.324 9.79714 21.9982 8.78346L21.9133 8.81017C20.8868 9.12245 18.9652 9.6745 16.8752 10.0994Z"
+                                      class="fill"/>
+                                <path d="M21.4017 7.31948C20.3698 7.63221 18.579 8.14039 16.6599 8.53603C16.2178 5.84926 15.443 3.16951 15.0702 1.95598C17.8422 2.80227 20.1273 4.76467 21.4017 7.31948Z"
+                                      class="fill"/>
+                                <path d="M15.1117 8.82229C14.0253 8.99781 12.9513 9.1125 12 9.1125C11.0487 9.1125 9.97477 8.99781 8.88843 8.8223C9.30471 6.28005 10.0478 3.68306 10.4278 2.44333C10.525 2.12606 10.5637 2.00144 10.6306 1.83418C10.664 1.75062 10.698 1.67398 10.7457 1.57414C11.157 1.52518 11.5756 1.5 12 1.5C12.4434 1.5 12.8803 1.52748 13.3093 1.58083C13.3184 1.61564 13.3268 1.64679 13.3351 1.67626C13.3597 1.76333 13.3982 1.8857 13.4628 2.09104L13.4696 2.11261C13.7935 3.14223 14.6519 6.01401 15.1117 8.82229Z"
+                                      class="fill"/>
+                                <path d="M7.34004 8.536C7.7801 5.86107 8.54986 3.19576 8.92192 1.98181L8.92983 1.95597C6.15777 2.80225 3.8727 4.76465 2.59835 7.31946C3.63018 7.63219 5.42095 8.14036 7.34004 8.536Z"
+                                      class="fill"/>
+                                <path d="M2.00184 8.78345C1.67598 9.79714 1.5 10.878 1.5 12C1.5 12.4389 1.52693 12.8715 1.57923 13.2963L1.74471 13.3515L1.74603 13.3519L1.74765 13.3525L1.74879 13.3528C1.80205 13.3705 3.36305 13.886 5.41878 14.3975C5.99886 14.5418 6.61307 14.6844 7.24006 14.8151C7.10025 13.8388 7.0125 12.8769 7.0125 12C7.0125 11.3988 7.05374 10.7577 7.12472 10.0994C5.03428 9.67436 3.11218 9.12212 2.08597 8.80989L2.07883 8.80771L2.00184 8.78345Z"
+                                      class="fill"/>
+                                <path d="M12 16.9875C12.8769 16.9875 13.8389 16.8997 14.8153 16.7599C14.4016 18.7425 13.8731 20.575 13.5722 21.5566C13.475 21.8739 13.4363 21.9985 13.3694 22.1658C13.336 22.2494 13.302 22.326 13.2543 22.4259C12.843 22.4748 12.4244 22.5 12 22.5C11.5756 22.5 11.157 22.4748 10.7457 22.4259C10.698 22.326 10.664 22.2494 10.6306 22.1658C10.5637 21.9986 10.525 21.8739 10.4278 21.5567C10.1269 20.5751 9.59846 18.7427 9.18478 16.7603C10.1579 16.8996 11.1201 16.9875 12 16.9875Z"
+                                      class="fill"/>
+                                <path d="M5.0385 15.9259C3.73853 15.6024 2.63135 15.2775 1.95597 15.0702C2.97258 18.4002 5.59982 21.0274 8.92983 22.044L8.92192 22.0182C8.59705 20.9582 7.96897 18.7917 7.52191 16.4784C6.6525 16.3103 5.80722 16.1171 5.0385 15.9259Z"
+                                      class="fill"/>
+                                <path d="M22.0182 15.0781C20.9582 15.403 18.7915 16.0311 16.4781 16.4781C16.0311 18.7915 15.403 20.9581 15.0781 22.0182L15.0702 22.044C18.4002 21.0274 21.0274 18.4002 22.044 15.0702L22.0182 15.0781Z"
+                                      class="fill"/>
+                                <path d="M1.6103 13.323C1.64665 13.3277 1.67628 13.3327 1.68611 13.3349C1.69472 13.337 1.70821 13.3406 1.7131 13.3419L1.72391 13.345L1.72973 13.3468L1.73585 13.3487L1.74098 13.3503C1.7381 13.3494 1.67976 13.3348 1.6103 13.323Z"
+                                      class="fill"/>
+                            </svg>
+                            <div>
+                                <p>Site</p>
+                                <a href="https://viniciuscampitelli.com" target="_blank" rel="noopener">
+                                    viniciuscampitelli.com
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <svg role="img" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                                      class="fill"></path>
+                            </svg>
+                            <div>
+                                <p>GitHub</p>
+                                <a href="https://github.com/vcampitelli" target="_blank" rel="noopener">
+                                    vcampitelli
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <svg role="img" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                                      class="fill"/>
+                                <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                                      class="fill"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                                      class="fill"/>
+                            </svg>
+                            <div>
+                                <p>Instagram</p>
+                                <a href="https://instagram.com/vcampitelli" target="_blank" rel="noopener">
+                                    vcampitelli
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <svg role="img" width="64px" height="64px" viewBox="0 0 448 448" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M64 0C28.7 0 0 28.7 0 64V384C0 419.3 28.7 448 64 448H384C419.3 448 448 419.3 448 384V64C448 28.7 419.3 0 384 0H64ZM294.2 212.3C313.7 221.6 327.9 235.8 335.4 253.2C345.8 277.5 346.8 317.1 315.2 348.6C291 372.7 261.7 383.6 220.1 383.9H219.9C173.1 383.6 137.1 367.8 113 337.1C91.5 309.8 80.4 271.7 80 224V223.8C80.4 176.1 91.5 138.1 113 110.7C137.2 80 173.2 64.2 219.9 63.9H220.1C267 64.2 303.4 79.9 328.3 110.5C340.6 125.6 349.6 143.8 355.3 164.9L328.4 172.1C323.7 154.9 316.5 140.2 307 128.5C287.6 104.6 258.3 92.4 220 92.1C182 92.4 153.2 104.6 134.5 128.3C117 150.6 107.9 182.7 107.6 223.8C107.9 264.9 117 297.1 134.5 319.3C153.2 343.1 181.9 355.3 220 355.5C254.3 355.2 276.9 347.1 295.8 328.2C317.3 306.7 316.9 280.3 310 264.2C306 254.8 298.6 246.9 288.7 240.9C286.3 258.9 280.8 273.1 272.2 284.1C260.8 298.6 244.5 306.5 223.8 307.6C208.1 308.5 193 304.7 181.2 296.9C167.3 287.7 159.2 273.7 158.3 257.4C156.6 225.2 182.1 202.1 221.8 199.8C235.9 199 249.1 199.6 261.3 201.7C259.7 191.8 256.4 184 251.5 178.3C244.8 170.5 234.4 166.5 220.7 166.4H220.3C209.3 166.4 194.3 169.5 184.7 184L161.7 168.2C174.5 148.8 195.3 138.1 220.2 138.1H220.8C262.6 138.4 287.4 164.4 289.9 209.9C291.3 210.5 292.7 211.1 294.1 211.8L294.2 212.3ZM222.4 279.8C239.4 278.9 258.8 272.2 262.1 231C253.3 229.1 243.5 228.1 233.1 228.1C229.9 228.1 226.7 228.2 223.5 228.4C194.9 230 185.4 243.9 186.1 256.3C187 273 205.1 280.8 222.5 279.9L222.4 279.8Z"
+                                      class="fill"/>
+                            </svg>
+                            <div>
+                                <p>Threads</p>
+                                <a href="https://www.threads.net/@vcampitelli" target="_blank" rel="noopener">
+                                    vcampitelli
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"
+                                      class="fill"></path>
+                            </svg>
+                            <div>
+                                <p><span class="text-muted">X</span> Twitter</p>
+                                <a href="https://twitter.com/vcampitelli" target="_blank" rel="noopener">
+                                    vcampitelli
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <svg role="img" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
+                                <g fill="none" fill-rule="evenodd">
+                                    <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z"
+                                          class="fill"/>
+                                    <path d="M62,62 L51.315625,62 L51.315625,43.8021149 C51.315625,38.8127542 49.4197917,36.0245323 45.4707031,36.0245323 C41.1746094,36.0245323 38.9300781,38.9261103 38.9300781,43.8021149 L38.9300781,62 L28.6333333,62 L28.6333333,27.3333333 L38.9300781,27.3333333 L38.9300781,32.0029283 C38.9300781,32.0029283 42.0260417,26.2742151 49.3825521,26.2742151 C56.7356771,26.2742151 62,30.7644705 62,40.051212 L62,62 Z M16.349349,22.7940133 C12.8420573,22.7940133 10,19.9296567 10,16.3970067 C10,12.8643566 12.8420573,10 16.349349,10 C19.8566406,10 22.6970052,12.8643566 22.6970052,16.3970067 C22.6970052,19.9296567 19.8566406,22.7940133 16.349349,22.7940133 Z M11.0325521,62 L21.769401,62 L21.769401,27.3333333 L11.0325521,27.3333333 L11.0325521,62 Z"
+                                          class="fill-bg"/>
+                                </g>
+                            </svg>
+                            <div>
+                                <p>LinkedIn</p>
+                                <a href="https://linkedin.com/in/viniciuscampitelli" target="_blank"
+                                   rel="noopener">
+                                    Vinícius Campitelli
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section> <!-- Obrigado -->
+            </div>
+        </div>
+        <div id="translations">
+            <a href="#pt" title="Exibir termos da interface da AWS em Português">🇧🇷</a>
+            <a href="#en" title="Exibir termos da interface da AWS em Inglês">🇺🇸</a>
+        </div>
+
+        <script src="reveal.js/dist/reveal.js"></script>
+        <script src="reveal.js/plugin/notes/notes.js"></script>
+        <script src="reveal.js/plugin/highlight/highlight.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
